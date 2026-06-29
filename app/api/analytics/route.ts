@@ -79,6 +79,36 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUz
 
 export async function POST(request: Request) {
   try {
+    const body = await request.json().catch(() => ({}))
+
+    // Handle updates sent via sendBeacon (which always issues a POST request)
+    if (body.id) {
+      const { id, sessionDuration, clickCount, scrollDepth } = body
+      const res = await fetch(`${supabaseUrl}/rest/v1/visitors?id=eq.${id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          session_duration: sessionDuration,
+          click_count: clickCount,
+          scroll_depth: scrollDepth,
+          updated_at: new Date().toISOString()
+        })
+      })
+
+      if (!res.ok) {
+        const errText = await res.text()
+        console.error('Supabase sendBeacon Update Error:', errText)
+        return NextResponse.json({ error: 'Failed to update session metrics via sendBeacon' }, { status: 500 })
+      }
+
+      return NextResponse.json({ success: true })
+    }
+
     const headerList = request.headers
     const ip = headerList.get('x-forwarded-for')?.split(',')[0] || headerList.get('x-real-ip') || 'unknown'
     const userAgent = headerList.get('user-agent') || 'unknown'
@@ -119,7 +149,6 @@ export async function POST(request: Request) {
       }
     }
 
-    const body = await request.json().catch(() => ({}))
     const screenWidth = body.screenWidth || null
     const screenHeight = body.screenHeight || null
     const timezone = body.timezone || 'unknown'
