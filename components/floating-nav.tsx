@@ -33,7 +33,7 @@ export function FloatingNav() {
 
   return (
     <>
-      <div className="fixed top-6 left-0 w-full z-50 flex justify-center pointer-events-none">
+      <div className="fixed top-4 left-0 w-full z-50 flex justify-center pointer-events-none">
         <motion.div
           className="pointer-events-auto"
           initial={{ y: -100, opacity: 0 }}
@@ -48,7 +48,7 @@ export function FloatingNav() {
           <motion.div 
             className="relative rounded-full bg-zinc-950/40 backdrop-blur-xl shadow-[0_12px_40px_0_rgba(0,0,0,0.6)] border border-white/10"
             animate={{ 
-              padding: isScrolled ? "0.35rem 1.25rem" : "0.5rem 1.5rem",
+              padding: isScrolled ? "0.25rem 1rem" : "0.35rem 1.25rem",
             }}
             transition={{ 
               padding: { duration: 0.4, ease: "easeOut" }
@@ -84,7 +84,7 @@ export function FloatingNav() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/10"
+                      className="px-3.5 py-1.5 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/10"
                       onClick={handleNavClick}
                     >
                       {item.name}
@@ -94,7 +94,7 @@ export function FloatingNav() {
 
                 <a
                   href="mailto:noorimran4462@gmail.com"
-                  className="relative z-10 px-5 py-2 text-sm font-semibold rounded-full text-white overflow-hidden group shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/45"
+                  className="relative z-10 px-4 py-1.5 text-xs font-semibold rounded-full text-white overflow-hidden group shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/45"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 transition-transform duration-300 group-hover:scale-105" />
                   <span className="relative z-10">Contact Me</span>
