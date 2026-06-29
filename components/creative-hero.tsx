@@ -9,8 +9,6 @@ export function CreativeHero() {
   const isMobile = useMobile()
 
   useEffect(() => {
-    if (isMobile) return
-
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -40,12 +38,15 @@ export function CreativeHero() {
     let targetY = 0
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (isMobile) return
       const rect = canvas.getBoundingClientRect()
       targetX = e.clientX - rect.left
       targetY = e.clientY - rect.top
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouseMove)
+    }
 
     // Particle class
     class Particle {
@@ -63,7 +64,7 @@ export function CreativeHero() {
         this.y = y
         this.baseX = x
         this.baseY = y
-        this.size = Math.random() * 5 + 2
+        this.size = Math.random() * (isMobile ? 3 : 5) + 2
         this.density = Math.random() * 30 + 1
         this.distance = 0
 
@@ -73,7 +74,7 @@ export function CreativeHero() {
       }
 
       update() {
-        // Calculate distance between mouse and particle
+        // Calculate distance between mouse/attractor and particle
         const dx = mouseX - this.x
         const dy = mouseY - this.y
         this.distance = Math.sqrt(dx * dx + dy * dy)
@@ -81,7 +82,7 @@ export function CreativeHero() {
         const forceDirectionX = dx / this.distance
         const forceDirectionY = dy / this.distance
 
-        const maxDistance = 100
+        const maxDistance = isMobile ? 80 : 100
         const force = (maxDistance - this.distance) / maxDistance
 
         if (this.distance < maxDistance) {
@@ -113,7 +114,7 @@ export function CreativeHero() {
 
     // Create particle grid
     const particlesArray: Particle[] = []
-    const gridSize = 30
+    const gridSize = isMobile ? 42 : 30 // Larger grid size on mobile = fewer particles = buttery smooth performance
 
     function init() {
       particlesArray.length = 0
@@ -136,8 +137,18 @@ export function CreativeHero() {
     init()
 
     // Animation loop
-    const animate = () => {
+    let animationFrameId: number
+    const animate = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Auto-drift the attractor if on mobile or if no mouse movement has occurred
+      if (isMobile || (targetX === 0 && targetY === 0)) {
+        const radius = Math.min(canvas.width, canvas.height) / (2.5 * devicePixelRatio)
+        const centerX = (canvas.width / 2) / devicePixelRatio
+        const centerY = (canvas.height / 2) / devicePixelRatio
+        targetX = centerX + Math.cos(time * 0.0008) * radius
+        targetY = centerY + Math.sin(time * 0.0012) * radius
+      }
 
       // Smooth mouse following
       mouseX += (targetX - mouseX) * 0.1
@@ -148,15 +159,15 @@ export function CreativeHero() {
         particlesArray[i].update()
         particlesArray[i].draw()
 
-        // Draw connections
+        // Draw connections between close particles
         for (let j = i; j < particlesArray.length; j++) {
           const dx = particlesArray[i].x - particlesArray[j].x
           const dy = particlesArray[i].y - particlesArray[j].y
           const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < 30) {
+          if (distance < (isMobile ? 40 : 30)) {
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(180, 120, 255, ${0.2 - distance / 150})`
+            ctx.strokeStyle = `rgba(180, 120, 255, ${0.15 - distance / 150})`
             ctx.lineWidth = 0.5
             ctx.moveTo(particlesArray[i].x, particlesArray[i].y)
             ctx.lineTo(particlesArray[j].x, particlesArray[j].y)
@@ -165,10 +176,10 @@ export function CreativeHero() {
         }
       }
 
-      requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
     }
 
-    animate()
+    animate(0)
 
     // Handle window resize
     window.addEventListener("resize", init)
@@ -177,27 +188,13 @@ export function CreativeHero() {
       window.removeEventListener("resize", setCanvasDimensions)
       window.removeEventListener("resize", init)
       window.removeEventListener("mousemove", handleMouseMove)
+      cancelAnimationFrame(animationFrameId)
     }
   }, [isMobile])
 
-  if (isMobile) {
-    return (
-      <div className="w-full h-[250px] relative flex items-center justify-center overflow-hidden">
-        <div className="absolute w-48 h-48 bg-purple-500 rounded-full mix-blend-screen filter blur-2xl opacity-20 animate-pulse"></div>
-        <div className="absolute w-40 h-40 bg-pink-500 rounded-full mix-blend-screen filter blur-2xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="relative p-6 rounded-2xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col items-center gap-2 max-w-[280px] text-center">
-          <span className="text-sm font-semibold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-            Innovator with an AI Edge
-          </span>
-          <span className="text-xs text-zinc-400">Business Informatics student</span>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <motion.div
-      className="w-full h-[500px] relative"
+      className="w-full h-[250px] sm:h-[350px] md:h-[500px] relative pointer-events-none md:pointer-events-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
