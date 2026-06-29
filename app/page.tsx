@@ -28,7 +28,7 @@ export default function Portfolio() {
           <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-28 pb-12 lg:py-0">
           <div className="space-y-6">
             <div className="inline-block">
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 mt-4">
@@ -39,7 +39,7 @@ export default function Portfolio() {
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               <span className="block">Hi, I'm</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                NOOR I.
+                NOOR IMRAN
               </span>
             </h1>
             <p className="text-xl text-zinc-400 max-w-[600px]">
@@ -109,7 +109,7 @@ export default function Portfolio() {
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
-                    <div className="font-medium">Noor I.</div>
+                    <div className="font-medium">Noor Imran</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
@@ -221,9 +221,10 @@ export default function Portfolio() {
       <footer className="border-t border-zinc-800 py-12">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
-            <Link href="/" className="font-bold text-xl">
+            <Link href="/" className="font-bold text-xl flex items-center">
+              <Logo />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-              <span className="text-white"> I.</span>
+              <span className="text-white"> Imran</span>
             </Link>
             <div className="text-sm text-zinc-500 mt-2 flex flex-col gap-1">
               <span>© {new Date().getFullYear()} tillnex.space. All rights reserved.</span>
@@ -248,5 +249,21 @@ export default function Portfolio() {
         Developed by <span className="font-semibold text-white">tillnex.space</span>
       </a>
     </div>
+  )
+}
+
+function Logo() {
+  return (
+    <svg className="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logo-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#ec4899" />
+        </linearGradient>
+      </defs>
+      <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="url(#logo-grad-footer)" opacity="0.15" stroke="url(#logo-grad-footer)" strokeWidth="3"/>
+      <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" stroke="url(#logo-grad-footer)" strokeWidth="2" strokeDasharray="4 2"/>
+      <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="30" fontWeight="bold" fontFamily="system-ui, sans-serif">NI</text>
+    </svg>
   )
 }

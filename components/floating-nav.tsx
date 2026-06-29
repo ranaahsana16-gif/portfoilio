@@ -59,9 +59,10 @@ export function FloatingNav() {
 
             {isMobile ? (
               <div className="relative flex items-center justify-between">
-                <Link href="/" className="font-bold text-lg">
+                <Link href="/" className="font-bold text-lg flex items-center">
+                  <Logo />
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white"> I.</span>
+                  <span className="text-white"> Imran</span>
                 </Link>
                 <Button
                   variant="ghost"
@@ -74,9 +75,10 @@ export function FloatingNav() {
               </div>
             ) : (
               <div className="relative flex items-center justify-between w-full">
-                <Link href="/" className="font-bold text-lg z-10">
+                <Link href="/" className="font-bold text-lg z-10 flex items-center">
+                  <Logo />
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white"> I.</span>
+                  <span className="text-white"> Imran</span>
                 </Link>
                 
                 <div className="flex items-center gap-1">
@@ -120,5 +122,21 @@ export function FloatingNav() {
         </motion.div>
       )}
     </>
+  )
+}
+
+function Logo() {
+  return (
+    <svg className="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#ec4899" />
+        </linearGradient>
+      </defs>
+      <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="url(#logo-grad)" opacity="0.15" stroke="url(#logo-grad)" strokeWidth="3"/>
+      <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" stroke="url(#logo-grad)" strokeWidth="2" strokeDasharray="4 2"/>
+      <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="30" fontWeight="bold" fontFamily="system-ui, sans-serif">NI</text>
+    </svg>
   )
 }
