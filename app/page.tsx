@@ -56,7 +56,7 @@ export default function Portfolio() {
               </a>
             </div>
           </div>
-          <div className="hidden lg:flex justify-center">
+          <div className="flex justify-center">
             <CreativeHero />
           </div>
         </div>
