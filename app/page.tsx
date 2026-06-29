@@ -1,14 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Linkedin, Mail } from "lucide-react"
+import { Linkedin, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 
-import { Button } from "@/components/ui/button"
-import { ProjectCard } from "@/components/project-card"
 import { SkillBadge } from "@/components/skill-badge"
 import { Timeline } from "@/components/timeline"
-import { ContactForm } from "@/components/contact-form"
 import { CreativeHero } from "@/components/creative-hero"
 import { FloatingNav } from "@/components/floating-nav"
 import { MouseFollower } from "@/components/mouse-follower"
@@ -31,29 +28,28 @@ export default function Portfolio() {
           <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-28 pb-12 lg:py-0">
-          <div className="space-y-6">
+        <div className="container px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-28 pb-12 lg:py-0">
+          <div className="space-y-5">
             <div className="inline-block">
-              <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 mt-4">
+              <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                 <span className="relative z-10">Innovator with an AI Edge</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight md:leading-none">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight">
               <span className="block">Hi, I'm</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                 NOOR IMRAN
               </span>
             </h1>
-            <p className="text-xl text-zinc-400 max-w-[600px]">
+            <p className="text-base sm:text-xl text-zinc-400 max-w-[600px]">
               Driving Business Growth. I am interested in Business Informatics and the intersection of business, technology, and data.
             </p>
-
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 pt-2">
               <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
-              </a>             
+              </a>
               <a href="mailto:noorimran4462@gmail.com" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
@@ -64,22 +60,19 @@ export default function Portfolio() {
             <CreativeHero />
           </div>
         </div>
-
-
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 relative scroll-mt-28">
+      <section id="about" className="py-16 sm:py-24 lg:py-32 relative scroll-mt-28">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         </div>
 
-        <div className="container relative z-10">
+        <div className="container px-6 relative z-10">
           <SectionHeading title="About Me" subtitle="My background and journey" />
 
-          <div className="mt-16 max-w-4xl mx-auto">
-
+          <div className="mt-10 sm:mt-16 max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -88,24 +81,24 @@ export default function Portfolio() {
               className="space-y-6"
             >
               <GlassmorphicCard>
-                <p className="text-lg text-zinc-300">
+                <p className="text-base sm:text-lg text-zinc-300">
                   Hi, I am Noor Imran. I am interested in Business Informatics and the intersection of business, technology, and data. Alongside my studies at Angels International College, I am developing skills in SEO, blogging, and content editing.
                 </p>
-                <p className="text-lg text-zinc-300 mt-4">
+                <p className="text-base sm:text-lg text-zinc-300 mt-4">
                   I am constantly exploring ways to combine business knowledge with modern digital solutions. As an innovator with an AI edge, I focus on driving business growth and leveraging new technologies.
                 </p>
-                <p className="text-lg text-zinc-300 mt-4">
+                <p className="text-base sm:text-lg text-zinc-300 mt-4">
                   I am open to Assistant, Associate, Administrative Assistant, Account Manager, and Editor roles, as well as paid editing and SEO opportunities.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 sm:mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
                     <div className="font-medium">Noor Imran</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium text-sm sm:text-base break-all">noorimran4462@gmail.com</div>
+                    <div className="font-medium text-sm break-all">noorimran4462@gmail.com</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
@@ -116,8 +109,6 @@ export default function Portfolio() {
                     <div className="font-medium text-green-500">Open to work</div>
                   </div>
                 </div>
-
-
               </GlassmorphicCard>
             </motion.div>
           </div>
@@ -125,16 +116,16 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-32 relative scroll-mt-28">
+      <section id="skills" className="py-16 sm:py-24 lg:py-32 relative scroll-mt-28">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         </div>
 
-        <div className="container relative z-10">
+        <div className="container px-6 relative z-10">
           <SectionHeading title="My Skills" subtitle="Technologies I work with" />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-10 sm:mt-16">
             <SkillBadge name="SEO" level={95} />
             <SkillBadge name="Off-Page SEO" level={90} />
             <SkillBadge name="Content Editing" level={85} />
@@ -146,38 +137,36 @@ export default function Portfolio() {
         </div>
       </section>
 
-
-
       {/* Experience Section */}
-      <section id="experience" className="py-32 relative scroll-mt-28">
+      <section id="experience" className="py-16 sm:py-24 lg:py-32 relative scroll-mt-28">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         </div>
 
-        <div className="container relative z-10">
+        <div className="container px-6 relative z-10">
           <SectionHeading title="Work Experience" subtitle="My professional journey" />
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="mt-16"
-            >
-              <Timeline />
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="mt-10 sm:mt-16"
+          >
+            <Timeline />
+          </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 relative scroll-mt-28">
+      <section id="contact" className="py-16 sm:py-24 lg:py-32 relative scroll-mt-28">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
         </div>
 
-        <div className="container relative z-10">
+        <div className="container px-6 relative z-10">
           <SectionHeading title="Get In Touch" subtitle="Let's work together" />
 
           <motion.div
@@ -185,35 +174,35 @@ export default function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="mt-16 max-w-2xl mx-auto"
+            className="mt-10 sm:mt-16 max-w-2xl mx-auto"
           >
             <GlassmorphicCard>
-              <h3 className="text-2xl font-bold mb-6 text-center">Contact Information</h3>
-              <div className="space-y-6 flex flex-col items-center">
-                <a href="mailto:noorimran4462@gmail.com" className="flex items-center gap-4 hover:bg-white/5 p-4 rounded-xl transition-colors w-full sm:w-auto">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center">Contact Information</h3>
+              <div className="space-y-4 flex flex-col items-center">
+                <a href="mailto:noorimran4462@gmail.com" className="flex items-center gap-4 hover:bg-white/5 p-3 sm:p-4 rounded-xl transition-colors w-full">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
                     <Mail className="h-5 w-5 text-purple-400" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium text-sm sm:text-lg break-all">noorimran4462@gmail.com</div>
+                    <div className="font-medium text-sm sm:text-base break-all">noorimran4462@gmail.com</div>
                   </div>
                 </a>
-                <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:bg-white/5 p-4 rounded-xl transition-colors w-full sm:w-auto">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:bg-white/5 p-3 sm:p-4 rounded-xl transition-colors w-full">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
                     <Linkedin className="h-5 w-5 text-purple-400" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-sm text-zinc-500">LinkedIn</div>
-                    <div className="font-medium text-lg">linkedin.com/in/noor-i-a41251378</div>
+                    <div className="font-medium text-sm sm:text-base truncate">Noor Imran</div>
                   </div>
                 </a>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-zinc-800 flex justify-center">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                  <span>Available for freelance work and full-time opportunities</span>
+              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-zinc-800 flex justify-center">
+                <div className="flex items-center gap-2 text-sm sm:text-base text-center">
+                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shrink-0"></div>
+                  <span>Available for freelance & full-time</span>
                 </div>
               </div>
             </GlassmorphicCard>
@@ -222,9 +211,9 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 pt-12 pb-24 md:py-12">
-        <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
+      <footer className="border-t border-zinc-800 pt-10 pb-24 md:py-12">
+        <div className="container px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-center md:text-left">
             <Link href="/" className="font-bold text-xl">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
               <span className="text-white"> Imran</span>
@@ -254,5 +243,3 @@ export default function Portfolio() {
     </div>
   )
 }
-
-
