@@ -106,7 +106,7 @@ export default function Portfolio() {
                   I am open to Assistant, Associate, Administrative Assistant, Account Manager, and Editor roles, as well as paid editing and SEO opportunities.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
                     <div className="font-medium">Noor Imran</div>
@@ -142,7 +142,7 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="My Skills" subtitle="Technologies I work with" />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-16">
             <SkillBadge name="SEO" level={95} />
             <SkillBadge name="Off-Page SEO" level={90} />
             <SkillBadge name="Content Editing" level={85} />
@@ -221,8 +221,7 @@ export default function Portfolio() {
       <footer className="border-t border-zinc-800 py-12">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
-            <Link href="/" className="font-bold text-xl flex items-center">
-              <Logo />
+            <Link href="/" className="font-bold text-xl">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
               <span className="text-white"> Imran</span>
             </Link>
@@ -252,18 +251,4 @@ export default function Portfolio() {
   )
 }
 
-function Logo() {
-  return (
-    <svg className="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="logo-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#ec4899" />
-        </linearGradient>
-      </defs>
-      <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="url(#logo-grad-footer)" opacity="0.15" stroke="url(#logo-grad-footer)" strokeWidth="3"/>
-      <polygon points="50,15 85,32.5 85,67.5 50,85 15,67.5 15,32.5" stroke="url(#logo-grad-footer)" strokeWidth="2" strokeDasharray="4 2"/>
-      <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="30" fontWeight="bold" fontFamily="system-ui, sans-serif">NI</text>
-    </svg>
-  )
-}
+

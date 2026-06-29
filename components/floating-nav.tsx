@@ -46,7 +46,7 @@ export function FloatingNav() {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <motion.div 
-            className="relative rounded-full bg-white/5 backdrop-blur-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] ring-1 ring-white/10"
+            className="relative rounded-full bg-zinc-950/40 backdrop-blur-xl shadow-[0_12px_40px_0_rgba(0,0,0,0.6)] border border-white/10"
             animate={{ 
               padding: isScrolled ? "0.35rem 1.25rem" : "0.5rem 1.5rem",
             }}
@@ -79,7 +79,7 @@ export function FloatingNav() {
                   <span className="text-white"> Imran</span>
                 </Link>
                 
-                <div className="flex items-center gap-1">
+                <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
@@ -91,6 +91,14 @@ export function FloatingNav() {
                     </Link>
                   ))}
                 </div>
+
+                <a
+                  href="mailto:noorimran4462@gmail.com"
+                  className="relative z-10 px-5 py-2 text-sm font-semibold rounded-full text-white overflow-hidden group shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/45"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 transition-transform duration-300 group-hover:scale-105" />
+                  <span className="relative z-10">Contact Me</span>
+                </a>
               </div>
             )}
           </motion.div>
@@ -100,12 +108,12 @@ export function FloatingNav() {
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
-          className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
+          className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl ${isOpen ? "block" : "hidden"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isOpen ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center h-full gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -116,6 +124,13 @@ export function FloatingNav() {
                 {item.name}
               </Link>
             ))}
+            <a
+              href="mailto:noorimran4462@gmail.com"
+              className="mt-6 px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-lg font-semibold rounded-full text-white shadow-lg shadow-purple-500/20"
+              onClick={handleNavClick}
+            >
+              Contact Me
+            </a>
           </div>
         </motion.div>
       )}
