@@ -22,30 +22,175 @@ export default function Portfolio() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated background orbs */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+            animate={{ x: [0, 30, -20, 0], y: [0, -50, 20, 0], scale: [1, 1.1, 0.9, 1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-40 right-10 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+            animate={{ x: [0, -30, 20, 0], y: [0, 20, -40, 0], scale: [1, 0.9, 1.15, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+            animate={{ x: [0, 40, -30, 0], y: [0, -30, 40, 0], scale: [1, 1.05, 0.95, 1] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
         </div>
 
-        <div className="container px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-28 pb-12 lg:py-0">
+        {/* ========== MOBILE HERO ========== */}
+        <div className="lg:hidden container px-6 relative z-10 flex flex-col items-center justify-center text-center pt-28 pb-16">
+          {/* Animated border card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative w-full max-w-sm"
+          >
+            {/* Rotating gradient border */}
+            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 opacity-60 blur-sm animate-pulse" />
+            
+            <div className="relative rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-white/5 p-8 flex flex-col items-center gap-6">
+              {/* Avatar initials */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 200 }}
+                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-2xl shadow-purple-500/30"
+              >
+                <span className="text-2xl font-black text-white tracking-wider">NI</span>
+              </motion.div>
+
+              {/* Name */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="space-y-1"
+              >
+                <h1 className="text-3xl font-bold tracking-tight">
+                  <span className="text-white">Noor </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">Imran</span>
+                </h1>
+                <p className="text-sm text-zinc-500">Faisalabad, Pakistan</p>
+              </motion.div>
+
+              {/* Animated role pills */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="flex flex-wrap justify-center gap-2"
+              >
+                {["Innovator", "AI Edge", "SEO Expert", "Business Growth"].map((role, i) => (
+                  <motion.span
+                    key={role}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.8 + i * 0.1, type: "spring" }}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-zinc-300"
+                  >
+                    {role}
+                  </motion.span>
+                ))}
+              </motion.div>
+
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+                className="text-sm text-zinc-400 leading-relaxed"
+              >
+                Business Informatics student driving growth at the intersection of business, technology, and data.
+              </motion.p>
+
+              {/* Social buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.4 }}
+                className="flex gap-3 w-full"
+              >
+                <a
+                  href="https://www.linkedin.com/in/noor-i-a41251378/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 text-zinc-300 hover:bg-purple-500/20 hover:border-purple-500/30 hover:text-white transition-all text-sm font-medium"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:noorimran4462@gmail.com"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all"
+                >
+                  <Mail className="h-4 w-4" />
+                  Email Me
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="mt-10"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center items-start p-1.5"
+            >
+              <div className="w-1 h-2 rounded-full bg-white/50" />
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* ========== DESKTOP HERO ========== */}
+        <div className="hidden lg:grid container px-6 relative z-10 grid-cols-2 gap-12 items-center">
           <div className="space-y-5">
-            <div className="inline-block">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-block"
+            >
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                 <span className="relative z-10">Innovator with an AI Edge</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-7xl font-bold tracking-tight leading-tight"
+            >
               <span className="block">Hi, I'm</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
                 NOOR IMRAN
               </span>
-            </h1>
-            <p className="text-base sm:text-xl text-zinc-400 max-w-[600px]">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl text-zinc-400 max-w-[600px]"
+            >
               Driving Business Growth. I am interested in Business Informatics and the intersection of business, technology, and data.
-            </p>
-            <div className="flex gap-4 pt-2">
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex gap-4 pt-2"
+            >
               <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
@@ -54,9 +199,9 @@ export default function Portfolio() {
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </a>
-            </div>
+            </motion.div>
           </div>
-          <div className="hidden lg:flex justify-center">
+          <div className="flex justify-center">
             <CreativeHero />
           </div>
         </div>
