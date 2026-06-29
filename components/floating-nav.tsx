@@ -40,15 +40,15 @@ export function FloatingNav() {
           animate={{ 
             y: 0, 
             opacity: 1,
-            width: isMobile ? "92%" : (isScrolled ? "50%" : "65%"),
-            maxWidth: isScrolled ? "700px" : "900px"
+            width: isMobile ? "92%" : "85%",
+            maxWidth: "1200px"
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <motion.div 
             className="relative rounded-full bg-zinc-950/40 backdrop-blur-xl shadow-[0_12px_40px_0_rgba(0,0,0,0.6)] border border-white/10"
             animate={{ 
-              padding: isScrolled ? "0.35rem 1.25rem" : "0.5rem 1.5rem",
+              padding: isScrolled ? "0.4rem 1.5rem" : "0.6rem 2rem",
             }}
             transition={{ 
               padding: { duration: 0.4, ease: "easeOut" }
@@ -73,32 +73,30 @@ export function FloatingNav() {
                 </Button>
               </div>
             ) : (
-              <div className="relative flex items-center justify-between w-full">
-                <Link href="/" className="font-bold text-lg z-10">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white"> Imran</span>
+              <div className="relative flex items-center justify-between w-full px-4">
+                <Link href="/" className="font-semibold text-white tracking-wide hover:opacity-80 transition-opacity">
+                  Noor Imran
                 </Link>
                 
-                <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
+                <a 
+                  href="mailto:noorimran4462@gmail.com" 
+                  className="text-sm text-zinc-400 hover:text-white transition-colors"
+                >
+                  noorimran4462@gmail.com
+                </a>
+
+                <div className="flex items-center gap-8">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors rounded-full hover:bg-white/10"
+                      className="text-xs font-semibold tracking-widest text-zinc-300 hover:text-white transition-colors uppercase"
                       onClick={handleNavClick}
                     >
                       {item.name}
                     </Link>
                   ))}
                 </div>
-
-                <a
-                  href="mailto:noorimran4462@gmail.com"
-                  className="relative z-10 px-5 py-2 text-sm font-semibold rounded-full text-white overflow-hidden group shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/45"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 transition-transform duration-300 group-hover:scale-105" />
-                  <span className="relative z-10">Contact Me</span>
-                </a>
               </div>
             )}
           </motion.div>

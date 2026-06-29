@@ -21,93 +21,95 @@ export default function Portfolio() {
       <FloatingNav />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Soft background glows */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-900/10 rounded-full filter blur-[120px] mix-blend-screen animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-900/10 rounded-full filter blur-[120px] mix-blend-screen animate-pulse animation-delay-2000"></div>
         </div>
 
-        <div className="container px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-28 pb-12 lg:py-0">
-          <div className="space-y-5">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
+        {/* Global Particle Background for Desktop */}
+        <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none opacity-40">
+          <CreativeHero isGlobalBackground={true} />
+        </div>
+
+        <div className="container px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8 pt-20">
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-sm sm:text-base font-semibold tracking-[0.25em] text-purple-400/80 uppercase"
+          >
+            Hello! I'm
+          </motion.p>
+
+          {/* Huge Centered Name */}
+          <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-wider leading-none select-none flex flex-col items-center gap-2">
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-block"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-white"
             >
-              <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                <span className="relative z-10">Innovator with an AI Edge</span>
-                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
-              </div>
-            </motion.div>
-
-            {/* Name with typewriter effect */}
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              <motion.span
-                className="block"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-              >
-                Hi, I'm
-              </motion.span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 inline-flex">
-                {"NOOR IMRAN".split("").map((char, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.05, delay: 0.8 + i * 0.07 }}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
-                <motion.span
-                  className="inline-block w-[3px] h-[0.85em] bg-pink-500 ml-1 align-baseline"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse", delay: 1.6 }}
-                />
-              </span>
-            </h1>
-
-            {/* Tagline - word by word reveal */}
-            <div className="flex flex-wrap gap-x-2 text-base sm:text-xl text-zinc-400 max-w-[600px]">
-              {"Driving Business Growth · Business Informatics · SEO · Content Editing · AI".split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, filter: "blur(0px)" }}
-                  transition={{ duration: 0.3, delay: 1.8 + i * 0.08 }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </div>
-
-            {/* Social icons */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              NOOR
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 2.6 }}
-              className="flex gap-4 pt-2"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 filter drop-shadow-[0_0_35px_rgba(168,85,247,0.4)] mt-2"
             >
-              <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="mailto:noorimran4462@gmail.com" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </a>
-            </motion.div>
-          </div>
+              IMRAN
+            </motion.span>
+          </h1>
 
-          {/* Particle canvas - desktop only */}
-          <div className="hidden lg:flex justify-center">
-            <CreativeHero />
+          {/* Sub description */}
+          <div className="space-y-4 pt-4">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xs sm:text-sm font-bold tracking-[0.35em] text-zinc-500 uppercase"
+            >
+              A Creative
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-widest leading-snug bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-300 filter drop-shadow-[0_0_15px_rgba(236,72,153,0.15)] uppercase"
+            >
+              Innovator & Strategist
+            </motion.h2>
           </div>
+        </div>
+
+        {/* Floating Social Icons (Left Side - Desktop Only) */}
+        <div className="fixed left-8 bottom-12 z-40 hidden md:flex flex-col items-center gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="flex flex-col items-center gap-6"
+          >
+            <a
+              href="https://www.linkedin.com/in/noor-i-a41251378/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-500 hover:text-white transition-all hover:scale-110 duration-200"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a
+              href="mailto:noorimran4462@gmail.com"
+              className="text-zinc-500 hover:text-white transition-all hover:scale-110 duration-200"
+            >
+              <Mail className="h-5 w-5" />
+            </a>
+            {/* Vertical Line */}
+            <div className="w-[1px] h-20 bg-zinc-800 mt-2"></div>
+          </motion.div>
         </div>
       </section>
 
