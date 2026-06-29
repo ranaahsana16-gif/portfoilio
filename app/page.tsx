@@ -16,6 +16,10 @@ import { GlassmorphicCard } from "@/components/glassmorphic-card"
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
+      {/* Mobile Global Background Particles */}
+      <div className="block lg:hidden fixed inset-0 z-0 pointer-events-none opacity-30">
+        <CreativeHero isGlobalBackground={true} />
+      </div>
       <MouseFollower />
       <ScrollProgress />
       <FloatingNav />
@@ -57,7 +61,7 @@ export default function Portfolio() {
               </a>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="hidden lg:flex justify-center">
             <CreativeHero />
           </div>
         </div>

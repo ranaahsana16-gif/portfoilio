@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { useMobile } from "@/hooks/use-mobile"
 
-export function CreativeHero() {
+export function CreativeHero({ isGlobalBackground = false }: { isGlobalBackground?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const isMobile = useMobile()
 
@@ -64,7 +64,7 @@ export function CreativeHero() {
         this.y = y
         this.baseX = x
         this.baseY = y
-        this.size = Math.random() * (isMobile ? 3 : 5) + 2
+        this.size = Math.random() * (isMobile ? 2.5 : 5) + 1.5
         this.density = Math.random() * 30 + 1
         this.distance = 0
 
@@ -114,7 +114,7 @@ export function CreativeHero() {
 
     // Create particle grid
     const particlesArray: Particle[] = []
-    const gridSize = isMobile ? 42 : 30 // Larger grid size on mobile = fewer particles = buttery smooth performance
+    const gridSize = isMobile ? 48 : 30 // Slightly larger grid on mobile for absolute fluid speed
 
     function init() {
       particlesArray.length = 0
@@ -165,7 +165,7 @@ export function CreativeHero() {
           const dy = particlesArray[i].y - particlesArray[j].y
           const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < (isMobile ? 40 : 30)) {
+          if (distance < (isMobile ? 45 : 30)) {
             ctx.beginPath()
             ctx.strokeStyle = `rgba(180, 120, 255, ${0.15 - distance / 150})`
             ctx.lineWidth = 0.5
@@ -194,7 +194,7 @@ export function CreativeHero() {
 
   return (
     <motion.div
-      className="w-full h-[250px] sm:h-[350px] md:h-[500px] relative pointer-events-none md:pointer-events-auto"
+      className={isGlobalBackground ? "w-full h-full" : "w-full h-[500px] relative pointer-events-none md:pointer-events-auto"}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
