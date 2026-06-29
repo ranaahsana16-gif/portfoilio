@@ -40,7 +40,7 @@ export function FloatingNav() {
           animate={{ 
             y: 0, 
             opacity: 1,
-            width: isScrolled ? (isMobile ? "90%" : "60%") : "75%",
+            width: isMobile ? "92%" : (isScrolled ? "60%" : "75%"),
             maxWidth: isScrolled ? "700px" : "900px"
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -61,7 +61,7 @@ export function FloatingNav() {
               <div className="relative flex items-center justify-between">
                 <Link href="/" className="font-bold text-lg">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white">Imran</span>
+                  <span className="text-white"> I.</span>
                 </Link>
                 <Button
                   variant="ghost"
@@ -76,10 +76,10 @@ export function FloatingNav() {
               <div className="relative flex items-center justify-between w-full">
                 <Link href="/" className="font-bold text-lg z-10">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white">Imran</span>
+                  <span className="text-white"> I.</span>
                 </Link>
                 
-                <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
+                <div className="flex items-center gap-1">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
@@ -91,23 +91,6 @@ export function FloatingNav() {
                     </Link>
                   ))}
                 </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative z-10 px-6 py-2 text-sm font-medium rounded-full text-white overflow-hidden group"
-                >
-                  {/* Flowing background for the button */}
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"
-                    style={{ backgroundSize: "200% 100%" }}
-                    animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
-                    transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                  />
-                  {/* Hover glow overlay */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-white/20 transition-opacity"></div>
-                  <span className="relative z-10 font-semibold tracking-wide">Resume</span>
-                </motion.button>
               </div>
             )}
           </motion.div>
@@ -133,9 +116,6 @@ export function FloatingNav() {
                 {item.name}
               </Link>
             ))}
-            <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0">
-              Resume
-            </Button>
           </div>
         </motion.div>
       )}
