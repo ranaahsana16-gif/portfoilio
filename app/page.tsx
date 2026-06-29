@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 
 import { SkillBadge } from "@/components/skill-badge"
 import { Timeline } from "@/components/timeline"
-import { CreativeHero } from "@/components/creative-hero"
+import DotBackground from "@/components/dot-background"
 import { FloatingNav } from "@/components/floating-nav"
 import { MouseFollower } from "@/components/mouse-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
@@ -28,29 +28,38 @@ export default function Portfolio() {
           <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-900/10 rounded-full filter blur-[120px] mix-blend-screen animate-pulse animation-delay-2000"></div>
         </div>
 
-        {/* Global Particle Background for Desktop */}
-        <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none opacity-40">
-          <CreativeHero isGlobalBackground={true} />
-        </div>
+        {/* WebGL Dot Background */}
+        <DotBackground />
 
-        <div className="container px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-4 pt-16">
+        <div className="container px-6 relative z-10 flex flex-col items-center justify-center text-center max-w-4xl mx-auto space-y-4 pt-16">
           {/* Subtitle */}
-          <motion.p
+          <motion.h2
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-purple-400/80 uppercase"
+            style={{ 
+              fontSize: 'clamp(18px, 2.5vw, 28px)', 
+              fontWeight: 300, 
+              letterSpacing: '3px' 
+            }}
+            className="text-purple-400/80 uppercase m-0"
           >
             Hello! I'm
-          </motion.p>
+          </motion.h2>
 
-          {/* Huge Centered Name */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-wider leading-[1.05] select-none flex flex-col items-center">
+          {/* Centered Name */}
+          <h1 className="select-none flex flex-col items-center text-center m-0">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-white"
+              style={{ 
+                fontSize: 'clamp(38px, 6.5vw, 75px)', 
+                lineHeight: 'clamp(42px, 7vw, 80px)', 
+                fontWeight: 700, 
+                letterSpacing: '2px' 
+              }}
+              className="text-white uppercase font-sans m-0"
             >
               NOOR
             </motion.span>
@@ -58,27 +67,48 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-purple-400 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.55)] mt-1"
+              style={{ 
+                fontSize: 'clamp(38px, 6.5vw, 75px)', 
+                lineHeight: 'clamp(42px, 7vw, 80px)', 
+                fontWeight: 700, 
+                letterSpacing: '2px' 
+              }}
+              className="text-purple-400 uppercase font-sans filter drop-shadow-[0_0_35px_rgba(194,164,255,0.4)] mt-2"
             >
               IMRAN
             </motion.span>
           </h1>
 
           {/* Sub description */}
-          <div className="space-y-2 pt-4">
-            <motion.p
+          <div className="flex flex-col items-center text-center mt-6">
+            <motion.h3
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-[10px] sm:text-xs font-bold tracking-[0.4em] text-zinc-500 uppercase"
+              style={{ 
+                fontSize: 'clamp(16px, 2vw, 22px)', 
+                letterSpacing: '3px', 
+                fontWeight: 300 
+              }}
+              className="text-zinc-300 uppercase opacity-80 m-0 mb-3"
             >
               A Creative
-            </motion.p>
+            </motion.h3>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-lg sm:text-2xl md:text-4xl font-bold tracking-[0.2em] text-purple-400 filter drop-shadow-[0_0_15px_rgba(168,85,247,0.35)] uppercase"
+              style={{ 
+                fontSize: 'clamp(24px, 3.8vw, 48px)', 
+                lineHeight: 'clamp(30px, 4.5vw, 55px)',
+                fontWeight: 700,
+                letterSpacing: '4px',
+                background: 'linear-gradient(135deg, #ffffff 40%, #c2a4ff 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+              className="filter drop-shadow-[0_0_40px_rgba(194,164,255,0.25)] uppercase font-sans m-0"
             >
               Innovator & Strategist
             </motion.h2>
