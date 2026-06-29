@@ -15,7 +15,7 @@ import { GlassmorphicCard } from "@/components/glassmorphic-card"
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
+    <div className="min-h-screen bg-[#0b080c] text-white overflow-hidden relative">
       <MouseFollower />
       <ScrollProgress />
       <FloatingNav />
