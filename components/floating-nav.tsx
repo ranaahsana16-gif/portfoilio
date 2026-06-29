@@ -40,7 +40,7 @@ export function FloatingNav() {
           y: 0, 
           x: "-50%",
           opacity: 1,
-          top: isMobile ? (isScrolled ? "16px" : "20px") : (isScrolled ? "16px" : "30px"),
+          top: isMobile ? (isScrolled ? "10px" : "16px") : (isScrolled ? "16px" : "30px"),
           width: isMobile ? "calc(100% - 24px)" : "100%",
           maxWidth: isMobile 
             ? (isScrolled ? "360px" : "400px") 
@@ -49,7 +49,7 @@ export function FloatingNav() {
             ? (isScrolled ? "44px" : "50px") 
             : (isScrolled ? "54px" : "60px"),
           padding: isMobile 
-            ? "0 14px" 
+            ? "0 10px" 
             : (isScrolled ? "0 18px" : "0 24px"),
         }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -67,71 +67,25 @@ export function FloatingNav() {
         {/* Inner liquid glass reflection */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent rounded-full opacity-50 pointer-events-none mix-blend-overlay"></div>
 
-        {isMobile ? (
-          <div className="relative flex items-center justify-between w-full">
-            <Link href="/" className="font-semibold text-white text-xs tracking-wide">
-              Noor Imran
-            </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-zinc-400 hover:text-white hover:bg-zinc-700/50 rounded-full h-8 w-8"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </Button>
-          </div>
-        ) : (
-          <div className="relative flex items-center justify-between w-full">
-            <Link href="/" className="font-semibold text-white text-sm tracking-wide hover:opacity-80 transition-opacity z-10">
-              Noor Imran
-            </Link>
-            
-            <div className="flex items-center gap-2 z-10">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-[11px] sm:text-xs font-semibold tracking-widest text-zinc-300 hover:text-white transition-colors uppercase px-3 py-1.5 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10"
-                  onClick={handleNavClick}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </motion.div>
+        <div className="relative flex items-center justify-between w-full">
+          <Link href="/" className="font-semibold text-white text-[11px] sm:text-sm tracking-wide hover:opacity-80 transition-opacity z-10 shrink-0">
+            Noor Imran
+          </Link>
 
-      {/* Mobile menu */}
-      {isMobile && (
-        <motion.div
-          className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl ${isOpen ? "block" : "hidden"}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isOpen ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="flex flex-col items-center justify-center h-full gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 z-10">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="px-8 py-4 text-2xl font-medium text-white hover:text-purple-400 transition-colors"
+                className="text-[9px] sm:text-xs font-semibold tracking-widest text-zinc-300 hover:text-white transition-colors uppercase px-2 py-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10"
                 onClick={handleNavClick}
               >
                 {item.name}
               </Link>
             ))}
-            <a
-              href="mailto:noorimran4462@gmail.com"
-              className="mt-6 px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-lg font-semibold rounded-full text-white shadow-lg shadow-purple-500/20"
-              onClick={handleNavClick}
-            >
-              Contact Me
-            </a>
           </div>
-        </motion.div>
-      )}
+        </div>
+      </motion.div>
     </>
   )
 }
