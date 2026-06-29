@@ -59,9 +59,8 @@ export function FloatingNav() {
 
             {isMobile ? (
               <div className="relative flex items-center justify-between">
-                <Link href="/" className="font-bold text-lg">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Noor</span>
-                  <span className="text-white"> Imran</span>
+                <Link href="/" className="font-medium text-lg">
+                  <span className="text-white">Noor Imran</span>
                 </Link>
                 <Button
                   variant="ghost"
@@ -73,24 +72,24 @@ export function FloatingNav() {
                 </Button>
               </div>
             ) : (
-              <div className="relative flex items-center justify-between w-full px-4">
-                <Link href="/" className="font-semibold text-white tracking-wide hover:opacity-80 transition-opacity">
+              <div className="relative flex items-center justify-between w-full px-6 py-1">
+                <Link href="/" className="font-normal text-white text-sm sm:text-base tracking-wide hover:opacity-80 transition-opacity z-10">
                   Noor Imran
                 </Link>
                 
                 <a 
                   href="mailto:noorimran4462@gmail.com" 
-                  className="text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="absolute left-1/2 -translate-x-1/2 text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors tracking-wide z-10"
                 >
                   noorimran4462@gmail.com
                 </a>
 
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-8 z-10">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="text-xs font-semibold tracking-widest text-zinc-300 hover:text-white transition-colors uppercase"
+                      className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-zinc-300 hover:text-white transition-colors uppercase"
                       onClick={handleNavClick}
                     >
                       {item.name}

@@ -33,19 +33,19 @@ export default function Portfolio() {
           <CreativeHero isGlobalBackground={true} />
         </div>
 
-        <div className="container px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8 pt-20">
+        <div className="container px-6 relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-4 pt-16">
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-sm sm:text-base font-semibold tracking-[0.25em] text-purple-400/80 uppercase"
+            className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-purple-400/80 uppercase"
           >
             Hello! I'm
           </motion.p>
 
           {/* Huge Centered Name */}
-          <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-wider leading-none select-none flex flex-col items-center gap-2">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-wider leading-[1.05] select-none flex flex-col items-center">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,19 +58,19 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 filter drop-shadow-[0_0_35px_rgba(168,85,247,0.4)] mt-2"
+              className="text-purple-400 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.55)] mt-1"
             >
               IMRAN
             </motion.span>
           </h1>
 
           {/* Sub description */}
-          <div className="space-y-4 pt-4">
+          <div className="space-y-2 pt-4">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xs sm:text-sm font-bold tracking-[0.35em] text-zinc-500 uppercase"
+              className="text-[10px] sm:text-xs font-bold tracking-[0.4em] text-zinc-500 uppercase"
             >
               A Creative
             </motion.p>
@@ -78,7 +78,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-widest leading-snug bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-purple-300 filter drop-shadow-[0_0_15px_rgba(236,72,153,0.15)] uppercase"
+              className="text-lg sm:text-2xl md:text-4xl font-bold tracking-[0.2em] text-purple-400 filter drop-shadow-[0_0_15px_rgba(168,85,247,0.35)] uppercase"
             >
               Innovator & Strategist
             </motion.h2>
