@@ -38,7 +38,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             style={{ 
-              fontSize: 'clamp(18px, 2.5vw, 28px)', 
+              fontSize: 'clamp(22px, 3vw, 28px)', 
               fontWeight: 300, 
               letterSpacing: '3px' 
             }}
@@ -54,8 +54,8 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               style={{ 
-                fontSize: 'clamp(38px, 6.5vw, 75px)', 
-                lineHeight: 'clamp(42px, 7vw, 80px)', 
+                fontSize: 'clamp(52px, 7.5vw, 75px)', 
+                lineHeight: 'clamp(56px, 8vw, 80px)', 
                 fontWeight: 700, 
                 letterSpacing: '2px' 
               }}
@@ -68,12 +68,14 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               style={{ 
-                fontSize: 'clamp(38px, 6.5vw, 75px)', 
-                lineHeight: 'clamp(42px, 7vw, 80px)', 
+                fontSize: 'clamp(52px, 7.5vw, 75px)', 
+                lineHeight: 'clamp(56px, 8vw, 80px)', 
                 fontWeight: 700, 
-                letterSpacing: '2px' 
+                letterSpacing: '2px',
+                color: '#c2a4ff',
+                textShadow: '0 0 35px rgba(194, 164, 255, 0.85), 0 0 15px rgba(194, 164, 255, 0.45)'
               }}
-              className="text-purple-400 uppercase font-sans filter drop-shadow-[0_0_35px_rgba(194,164,255,0.4)] mt-2"
+              className="uppercase font-sans mt-2"
             >
               IMRAN
             </motion.span>
@@ -86,7 +88,7 @@ export default function Portfolio() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               style={{ 
-                fontSize: 'clamp(16px, 2vw, 22px)', 
+                fontSize: 'clamp(18px, 2.2vw, 22px)', 
                 letterSpacing: '3px', 
                 fontWeight: 300 
               }}
@@ -94,24 +96,26 @@ export default function Portfolio() {
             >
               A Creative
             </motion.h3>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              style={{ 
-                fontSize: 'clamp(24px, 3.8vw, 48px)', 
-                lineHeight: 'clamp(30px, 4.5vw, 55px)',
-                fontWeight: 700,
-                letterSpacing: '4px',
-                background: 'linear-gradient(135deg, #ffffff 40%, #c2a4ff 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-              className="filter drop-shadow-[0_0_40px_rgba(194,164,255,0.25)] uppercase font-sans m-0"
-            >
-              Innovator & Strategist
-            </motion.h2>
+            <div className="filter drop-shadow-[0_0_35px_rgba(194,164,255,0.45)]">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                style={{ 
+                  fontSize: 'clamp(28px, 4vw, 48px)', 
+                  lineHeight: 'clamp(34px, 4.8vw, 55px)',
+                  fontWeight: 700,
+                  letterSpacing: '4px',
+                  background: 'linear-gradient(135deg, #ffffff 40%, #c2a4ff 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+                className="uppercase font-sans m-0"
+              >
+                Innovator & Strategist
+              </motion.h2>
+            </div>
           </div>
         </div>
 
