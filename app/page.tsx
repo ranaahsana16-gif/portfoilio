@@ -30,22 +30,69 @@ export default function Portfolio() {
 
         <div className="container px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pt-28 pb-12 lg:py-0">
           <div className="space-y-5">
-            <div className="inline-block">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-block"
+            >
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                 <span className="relative z-10">Innovator with an AI Edge</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
-            </div>
+            </motion.div>
+
+            {/* Name with typewriter effect */}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              <span className="block">Hi, I'm</span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                NOOR IMRAN
+              <motion.span
+                className="block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+              >
+                Hi, I'm
+              </motion.span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 inline-flex">
+                {"NOOR IMRAN".split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.05, delay: 0.8 + i * 0.07 }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+                <motion.span
+                  className="inline-block w-[3px] h-[0.85em] bg-pink-500 ml-1 align-baseline"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse", delay: 1.6 }}
+                />
               </span>
             </h1>
-            <p className="text-base sm:text-xl text-zinc-400 max-w-[600px]">
-              Driving Business Growth. I am interested in Business Informatics and the intersection of business, technology, and data.
-            </p>
-            <div className="flex gap-4 pt-2">
+
+            {/* Tagline - word by word reveal */}
+            <div className="flex flex-wrap gap-x-2 text-base sm:text-xl text-zinc-400 max-w-[600px]">
+              {"Driving Business Growth · Business Informatics · SEO · Content Editing · AI".split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 0.3, delay: 1.8 + i * 0.08 }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+
+            {/* Social icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 2.6 }}
+              className="flex gap-4 pt-2"
+            >
               <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
@@ -54,9 +101,11 @@ export default function Portfolio() {
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </a>
-            </div>
+            </motion.div>
           </div>
-          <div className="flex justify-center">
+
+          {/* Particle canvas - desktop only */}
+          <div className="hidden lg:flex justify-center">
             <CreativeHero />
           </div>
         </div>
