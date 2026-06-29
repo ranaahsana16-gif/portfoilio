@@ -16,26 +16,112 @@ import { GlassmorphicCard } from "@/components/glassmorphic-card"
 
 export default function Portfolio() {
   useEffect(() => {
-    // Send analytics silently on mount
+    let visitorSessionId: string | null = null
+    let sessionDuration = 0
+    let clickCount = 0
+    let maxScrollPercent = 0
+
+    // Send initial log on mount
     const reportVisitor = async () => {
       try {
         const payload = {
           screenWidth: typeof window !== "undefined" ? window.innerWidth : null,
           screenHeight: typeof window !== "undefined" ? window.innerHeight : null,
-          timezone: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : null
+          timezone: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : null,
+          referrer: typeof document !== "undefined" ? document.referrer : 'Direct',
+          currentUrl: typeof window !== "undefined" ? window.location.href : 'unknown'
         }
-        await fetch("/api/analytics", {
+        const res = await fetch("/api/analytics", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(payload)
         })
+        if (res.ok) {
+          const data = await res.json()
+          if (data.success && data.id) {
+            visitorSessionId = data.id
+          }
+        }
       } catch (err) {
-        console.error("Analytics failure:", err)
+        console.error("Analytics init failure:", err)
       }
     }
+
     reportVisitor()
+
+    // Monitor click events
+    const handleClick = () => {
+      clickCount++
+    }
+    document.addEventListener("click", handleClick)
+
+    // Monitor scroll depth
+    const handleScroll = () => {
+      const docElement = document.documentElement
+      const scrollTotal = docElement.scrollHeight - docElement.clientHeight
+      if (scrollTotal > 0) {
+        const currentScrollPercent = Math.round((docElement.scrollTop / scrollTotal) * 100)
+        if (currentScrollPercent > maxScrollPercent) {
+          maxScrollPercent = currentScrollPercent
+        }
+      }
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    // Track active session duration
+    const interval = setInterval(() => {
+      sessionDuration++
+      // Periodically update session metrics every 15s to guarantee fresh logs
+      if (visitorSessionId && sessionDuration % 15 === 0) {
+        navigator.sendBeacon("/api/analytics", JSON.stringify({
+          id: visitorSessionId,
+          sessionDuration,
+          clickCount,
+          scrollDepth: maxScrollPercent
+        }))
+      }
+    }, 1000)
+
+    // Send final updates on page exit/unload
+    const handleUnload = () => {
+      if (visitorSessionId) {
+        const payload = JSON.stringify({
+          id: visitorSessionId,
+          sessionDuration,
+          clickCount,
+          scrollDepth: maxScrollPercent
+        })
+        // Next.js page routers support fallback fetch/sendBeacon PUT
+        if (navigator.sendBeacon) {
+          // Change content type to bypass basic preflights
+          const blob = new Blob([payload], { type: 'application/json' })
+          navigator.sendBeacon("/api/analytics", blob)
+        } else {
+          fetch("/api/analytics", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: payload,
+            keepalive: true
+          })
+        }
+      }
+    }
+
+    window.addEventListener("pagehide", handleUnload)
+    window.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        handleUnload()
+      }
+    })
+
+    return () => {
+      clearInterval(interval)
+      document.removeEventListener("click", handleClick)
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("pagehide", handleUnload)
+    }
   }, [])
 
   return (
