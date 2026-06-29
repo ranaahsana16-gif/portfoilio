@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, Linkedin, Mail } from "lucide-react"
+import { motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
