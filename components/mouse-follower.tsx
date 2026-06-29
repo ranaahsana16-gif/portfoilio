@@ -6,8 +6,21 @@ import { motion } from "framer-motion"
 export function MouseFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
 
   useEffect(() => {
+    const checkTouch = () => {
+      const hasTouch = 
+        window.matchMedia("(pointer: coarse)").matches || 
+        "ontouchstart" in window || 
+        navigator.maxTouchPoints > 0
+      setIsTouchDevice(hasTouch)
+    }
+    
+    checkTouch()
+
+    if (isTouchDevice) return
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
       setIsVisible(true)
@@ -24,7 +37,9 @@ export function MouseFollower() {
       window.removeEventListener("mousemove", handleMouseMove)
       document.body.removeEventListener("mouseleave", handleMouseLeave)
     }
-  }, [])
+  }, [isTouchDevice])
+
+  if (isTouchDevice) return null
 
   return (
     <>

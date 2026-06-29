@@ -29,17 +29,29 @@ export function CreativeHero() {
     setCanvasDimensions()
     window.addEventListener("resize", setCanvasDimensions)
 
-    // Mouse position
+    // Mouse/Touch position
     let mouseX = 0
     let mouseY = 0
     let targetX = 0
     let targetY = 0
 
-    window.addEventListener("mousemove", (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
       targetX = e.clientX - rect.left
       targetY = e.clientY - rect.top
-    })
+    }
+
+    const handleTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect()
+        targetX = e.touches[0].clientX - rect.left
+        targetY = e.touches[0].clientY - rect.top
+      }
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("touchstart", handleTouch, { passive: true })
+    window.addEventListener("touchmove", handleTouch, { passive: true })
 
     // Particle class
     class Particle {
@@ -171,6 +183,9 @@ export function CreativeHero() {
     return () => {
       window.removeEventListener("resize", setCanvasDimensions)
       window.removeEventListener("resize", init)
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("touchstart", handleTouch)
+      window.removeEventListener("touchmove", handleTouch)
     }
   }, [])
 
