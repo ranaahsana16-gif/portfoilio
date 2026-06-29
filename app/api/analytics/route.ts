@@ -6,20 +6,46 @@ function parseUserAgent(ua: string) {
   let browser = 'Unknown Browser'
   let version = 'Unknown Version'
   let device_type = 'Desktop'
+  let device_model = 'Unknown Model'
 
   // Device detection
   if (/mobile/i.test(ua)) {
     device_type = 'Mobile'
+    device_model = 'Generic Mobile'
   } else if (/tablet|ipad|playbook|silk/i.test(ua)) {
     device_type = 'Tablet'
+    device_model = 'Generic Tablet'
   }
 
-  // OS detection
-  if (/windows/i.test(ua)) os = 'Windows'
-  else if (/macintosh|mac os/i.test(ua)) os = 'macOS'
-  else if (/android/i.test(ua)) os = 'Android'
-  else if (/iphone|ipad|ipod/i.test(ua)) os = 'iOS'
-  else if (/linux/i.test(ua)) os = 'Linux'
+  // OS & Model detection
+  if (/windows/i.test(ua)) {
+    os = 'Windows'
+    device_model = 'Windows PC'
+  } else if (/macintosh|mac os/i.test(ua)) {
+    os = 'macOS'
+    device_model = 'Mac'
+  } else if (/android/i.test(ua)) {
+    os = 'Android'
+    device_type = 'Mobile'
+    // Extract Android device model (e.g. SM-G991B, Pixel 6, etc.)
+    const androidMatch = ua.match(/android\s+[\d\.]+;\s+([^;)]+)/i)
+    if (androidMatch) {
+      device_model = androidMatch[1].trim()
+    } else {
+      device_model = 'Android Device'
+    }
+  } else if (/iphone/i.test(ua)) {
+    os = 'iOS'
+    device_type = 'Mobile'
+    device_model = 'iPhone'
+  } else if (/ipad/i.test(ua)) {
+    os = 'iOS'
+    device_type = 'Tablet'
+    device_model = 'iPad'
+  } else if (/linux/i.test(ua)) {
+    os = 'Linux'
+    device_model = 'Linux PC'
+  }
 
   // Browser detection
   const uaLower = ua.toLowerCase()
@@ -45,7 +71,7 @@ function parseUserAgent(ua: string) {
     if (match) version = match[1]
   }
 
-  return { os, browser, version, device_type }
+  return { os, browser, version, device_type, device_model }
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://eidiskrbfgjsgljbvzqw.supabase.co'
@@ -120,6 +146,7 @@ export async function POST(request: Request) {
         browser: uaInfo.browser,
         browser_version: uaInfo.version,
         device_type: uaInfo.device_type,
+        device_model: uaInfo.device_model,
         screen_width: screenWidth,
         screen_height: screenHeight,
         language,
