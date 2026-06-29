@@ -2,11 +2,15 @@
 
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
+import { useMobile } from "@/hooks/use-mobile"
 
 export function CreativeHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const isMobile = useMobile()
 
   useEffect(() => {
+    if (isMobile) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -29,7 +33,7 @@ export function CreativeHero() {
     setCanvasDimensions()
     window.addEventListener("resize", setCanvasDimensions)
 
-    // Mouse/Touch position
+    // Mouse position
     let mouseX = 0
     let mouseY = 0
     let targetX = 0
@@ -41,17 +45,7 @@ export function CreativeHero() {
       targetY = e.clientY - rect.top
     }
 
-    const handleTouch = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        const rect = canvas.getBoundingClientRect()
-        targetX = e.touches[0].clientX - rect.left
-        targetY = e.touches[0].clientY - rect.top
-      }
-    }
-
     window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("touchstart", handleTouch, { passive: true })
-    window.addEventListener("touchmove", handleTouch, { passive: true })
 
     // Particle class
     class Particle {
@@ -119,7 +113,6 @@ export function CreativeHero() {
 
     // Create particle grid
     const particlesArray: Particle[] = []
-    const particleCount = 1000
     const gridSize = 30
 
     function init() {
@@ -184,14 +177,27 @@ export function CreativeHero() {
       window.removeEventListener("resize", setCanvasDimensions)
       window.removeEventListener("resize", init)
       window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("touchstart", handleTouch)
-      window.removeEventListener("touchmove", handleTouch)
     }
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) {
+    return (
+      <div className="w-full h-[250px] relative flex items-center justify-center overflow-hidden">
+        <div className="absolute w-48 h-48 bg-purple-500 rounded-full mix-blend-screen filter blur-2xl opacity-20 animate-pulse"></div>
+        <div className="absolute w-40 h-40 bg-pink-500 rounded-full mix-blend-screen filter blur-2xl opacity-20 animate-pulse animation-delay-2000"></div>
+        <div className="relative p-6 rounded-2xl bg-zinc-900/60 border border-white/10 backdrop-blur-md flex flex-col items-center gap-2 max-w-[280px] text-center">
+          <span className="text-sm font-semibold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+            Innovator with an AI Edge
+          </span>
+          <span className="text-xs text-zinc-400">Business Informatics student</span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <motion.div
-      className="w-full h-[250px] sm:h-[350px] md:h-[500px] relative"
+      className="w-full h-[500px] relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

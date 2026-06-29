@@ -96,7 +96,7 @@ export default function Portfolio() {
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium">noorimran4462@gmail.com</div>
+                    <div className="font-medium text-sm sm:text-base break-all">noorimran4462@gmail.com</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
@@ -175,7 +175,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium text-lg">noorimran4462@gmail.com</div>
+                    <div className="font-medium text-sm sm:text-lg break-all">noorimran4462@gmail.com</div>
                   </div>
                 </a>
                 <a href="https://www.linkedin.com/in/noor-i-a41251378/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:bg-white/5 p-4 rounded-xl transition-colors w-full sm:w-auto">
