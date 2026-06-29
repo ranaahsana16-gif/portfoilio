@@ -43,9 +43,12 @@ export default function Portfolio() {
           if (data.success && data.id) {
             visitorSessionId = data.id
           }
+        } else {
+          const errData = await res.json().catch(() => ({}))
+          console.error("Analytics registration failed on server:", errData)
         }
       } catch (err) {
-        console.error("Analytics init failure:", err)
+        console.error("Analytics connection failure:", err)
       }
     }
 

@@ -129,9 +129,15 @@ export async function POST(request: Request) {
     // If we have a public IP, query the geolocation API to retrieve ISP, Location, and VPN detection
     if (ip !== '::1' && ip !== '127.0.0.1' && ip !== 'unknown') {
       try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 2000)
+        
         const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,isp,proxy`, {
+          signal: controller.signal,
           next: { revalidate: 86400 } // Cache results for 24 hours
         })
+        clearTimeout(timeoutId)
+
         if (geoRes.ok) {
           const data = await geoRes.json()
           if (data.status === 'success') {
@@ -145,7 +151,7 @@ export async function POST(request: Request) {
           }
         }
       } catch (err) {
-        console.error('IP Geolocation Lookup failed:', err)
+        console.error('IP Geolocation Lookup failed or timed out:', err)
       }
     }
 
@@ -193,7 +199,11 @@ export async function POST(request: Request) {
     if (!res.ok) {
       const errText = await res.text()
       console.error('Supabase REST Error:', errText)
-      return NextResponse.json({ error: 'Database logging failed' }, { status: 500 })
+      return NextResponse.json({ 
+        error: 'Database logging failed', 
+        status: res.status, 
+        details: errText 
+      }, { status: 500 })
     }
 
     const rows = await res.json()
