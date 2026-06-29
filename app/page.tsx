@@ -16,10 +16,6 @@ import { GlassmorphicCard } from "@/components/glassmorphic-card"
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
-      {/* Mobile Global Background Particles */}
-      <div className="block lg:hidden fixed inset-0 z-0 pointer-events-none opacity-30">
-        <CreativeHero isGlobalBackground={true} />
-      </div>
       <MouseFollower />
       <ScrollProgress />
       <FloatingNav />
@@ -81,7 +77,13 @@ export default function Portfolio() {
 
           <div className="mt-16 max-w-4xl mx-auto">
 
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
               <GlassmorphicCard>
                 <p className="text-lg text-zinc-300">
                   Hi, I am Noor Imran. I am interested in Business Informatics and the intersection of business, technology, and data. Alongside my studies at Angels International College, I am developing skills in SEO, blogging, and content editing.
@@ -114,7 +116,7 @@ export default function Portfolio() {
 
 
               </GlassmorphicCard>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -153,9 +155,15 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="Work Experience" subtitle="My professional journey" />
 
-          <div className="mt-16">
-            <Timeline />
-          </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="mt-16"
+            >
+              <Timeline />
+            </motion.div>
         </div>
       </section>
 
@@ -169,7 +177,13 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="Get In Touch" subtitle="Let's work together" />
 
-          <div className="mt-16 max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-16 max-w-2xl mx-auto"
+          >
             <GlassmorphicCard>
               <h3 className="text-2xl font-bold mb-6 text-center">Contact Information</h3>
               <div className="space-y-6 flex flex-col items-center">
@@ -200,7 +214,7 @@ export default function Portfolio() {
                 </div>
               </div>
             </GlassmorphicCard>
-          </div>
+          </motion.div>
         </div>
       </section>
 
