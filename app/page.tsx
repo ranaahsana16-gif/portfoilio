@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Linkedin, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 
+import { useEffect } from "react"
 import { SkillBadge } from "@/components/skill-badge"
 import { Timeline } from "@/components/timeline"
 import DotBackground from "@/components/dot-background"
@@ -14,6 +15,29 @@ import { SectionHeading } from "@/components/section-heading"
 import { GlassmorphicCard } from "@/components/glassmorphic-card"
 
 export default function Portfolio() {
+  useEffect(() => {
+    // Send analytics silently on mount
+    const reportVisitor = async () => {
+      try {
+        const payload = {
+          screenWidth: typeof window !== "undefined" ? window.innerWidth : null,
+          screenHeight: typeof window !== "undefined" ? window.innerHeight : null,
+          timezone: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : null
+        }
+        await fetch("/api/analytics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        })
+      } catch (err) {
+        console.error("Analytics failure:", err)
+      }
+    }
+    reportVisitor()
+  }, [])
+
   return (
     <div className="min-h-screen bg-[#0b080c] text-white overflow-hidden relative">
       <MouseFollower />
