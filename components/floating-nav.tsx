@@ -87,13 +87,6 @@ export function FloatingNav() {
               Noor Imran
             </Link>
             
-            <a 
-              href="mailto:noorimran4462@gmail.com" 
-              className="absolute left-1/2 -translate-x-1/2 text-xs text-zinc-400 hover:text-white transition-colors tracking-wide z-10 hidden min-[900px]:block"
-            >
-              noorimran4462@gmail.com
-            </a>
-
             <div className="flex items-center gap-2 z-10">
               {navItems.map((item) => (
                 <Link
