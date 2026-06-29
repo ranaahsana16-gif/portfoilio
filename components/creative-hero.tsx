@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 
-export function CreativeHero() {
+export function CreativeHero({ isGlobalBackground = false }: { isGlobalBackground?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animFrameRef = useRef<number>(0)
 
@@ -14,9 +14,8 @@ export function CreativeHero() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const isMob = window.innerWidth < 768
-
-    let devicePixelRatio = window.devicePixelRatio || 1
+    const isMob = typeof window !== "undefined" && window.innerWidth < 768
+    let devicePixelRatio = (typeof window !== "undefined" && window.devicePixelRatio) || 1
 
     const setCanvasDimensions = () => {
       devicePixelRatio = window.devicePixelRatio || 1
@@ -28,11 +27,11 @@ export function CreativeHero() {
 
     setCanvasDimensions()
 
-    // Attractor position
-    let mouseX = 0
-    let mouseY = 0
-    let targetX = 0
-    let targetY = 0
+    // Attractor position (gentle hover glow effect on desktop)
+    let mouseX = -1000
+    let mouseY = -1000
+    let targetX = -1000
+    let targetY = -1000
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
@@ -40,111 +39,104 @@ export function CreativeHero() {
       targetY = e.clientY - rect.top
     }
 
-    if (!isMob) {
-      window.addEventListener("mousemove", handleMouseMove)
+    const handleMouseLeave = () => {
+      targetX = -1000
+      targetY = -1000
     }
 
-    // Particle
-    class Particle {
+    if (!isMob) {
+      window.addEventListener("mousemove", handleMouseMove)
+      window.addEventListener("mouseleave", handleMouseLeave)
+    }
+
+    // Star Particle Class
+    class Star {
       x: number
       y: number
-      baseX: number
-      baseY: number
       size: number
-      density: number
       color: string
+      vx: number
+      vy: number
+      alpha: number
+      alphaSpeed: number
 
       constructor(x: number, y: number) {
         this.x = x
         this.y = y
-        this.baseX = x
-        this.baseY = y
-        this.size = Math.random() * (isMob ? 2.5 : 5) + 1.5
-        this.density = Math.random() * 30 + 1
-        const hue = Math.random() * 60 + 270
-        this.color = `hsl(${hue}, 70%, 60%)`
+        this.size = Math.random() * (isMob ? 1.5 : 2.5) + 0.5
+        this.vx = (Math.random() - 0.5) * 0.05
+        this.vy = (Math.random() - 0.5) * 0.05
+        this.alpha = Math.random() * 0.5 + 0.3
+        this.alphaSpeed = (Math.random() - 0.5) * 0.005
+        
+        // Purple / pink / white stars
+        const hues = [280, 320, 240, 0] // Purple, Pink, Blue, White
+        const hue = hues[Math.floor(Math.random() * hues.length)]
+        this.color = hue === 0 ? `rgba(255, 255, 255,` : `rgba(${hue === 280 ? "168, 85, 247" : hue === 320 ? "236, 72, 153" : "99, 102, 241"},`
       }
 
-      update() {
+      update(w: number, h: number) {
+        // Drift slowly
+        this.x += this.vx
+        this.y += this.vy
+
+        // Wrap around borders
+        if (this.x < 0) this.x = w
+        if (this.x > w) this.x = 0
+        if (this.y < 0) this.y = h
+        if (this.y > h) this.y = 0
+
+        // Soft twinkle
+        this.alpha += this.alphaSpeed
+        if (this.alpha < 0.2 || this.alpha > 0.8) {
+          this.alphaSpeed = -this.alphaSpeed
+        }
+
+        // Push away slightly from mouse
         const dx = mouseX - this.x
         const dy = mouseY - this.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        const maxDist = isMob ? 80 : 100
-
-        if (dist < maxDist) {
-          const force = (maxDist - dist) / maxDist
-          this.x -= (dx / dist) * force * this.density
-          this.y -= (dy / dist) * force * this.density
-        } else {
-          this.x -= (this.x - this.baseX) / 10
-          this.y -= (this.y - this.baseY) / 10
+        if (dist < 80) {
+          const force = (80 - dist) / 80
+          this.x -= (dx / dist) * force * 0.5
+          this.y -= (dy / dist) * force * 0.5
         }
       }
 
       draw() {
-        ctx.fillStyle = this.color
+        ctx.fillStyle = this.color.includes("rgba") ? `${this.color} ${this.alpha})` : `${this.color} ${this.alpha})`
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
       }
     }
 
-    const particles: Particle[] = []
-    const grid = isMob ? 44 : 30
+    const stars: Star[] = []
+    const starCount = isMob ? 40 : 120 // Drastically optimized particle count for buttery 60fps
 
     function init() {
-      particles.length = 0
+      stars.length = 0
       const w = canvas.width / devicePixelRatio
       const h = canvas.height / devicePixelRatio
-      const nx = Math.floor(w / grid)
-      const ny = Math.floor(h / grid)
-      for (let y = 0; y < ny; y++) {
-        for (let x = 0; x < nx; x++) {
-          particles.push(new Particle(x * grid + grid / 2, y * grid + grid / 2))
-        }
+      for (let i = 0; i < starCount; i++) {
+        stars.push(new Star(Math.random() * w, Math.random() * h))
       }
     }
 
     init()
 
-    const connDist = isMob ? 42 : 30
-
-    const animate = (time: number) => {
+    const animate = () => {
       const w = canvas.width / devicePixelRatio
       const h = canvas.height / devicePixelRatio
       ctx.clearRect(0, 0, w, h)
 
-      // Auto-drift on mobile
-      if (isMob) {
-        const r = Math.min(w, h) / 3
-        targetX = w / 2 + Math.cos(time * 0.0007) * r
-        targetY = h / 2 + Math.sin(time * 0.001) * r
-      } else if (targetX === 0 && targetY === 0) {
-        const r = Math.min(w, h) / 3
-        targetX = w / 2 + Math.cos(time * 0.0007) * r
-        targetY = h / 2 + Math.sin(time * 0.001) * r
-      }
+      // Smooth mouse following
+      mouseX += (targetX - mouseX) * 0.1
+      mouseY += (targetY - mouseY) * 0.1
 
-      mouseX += (targetX - mouseX) * 0.08
-      mouseY += (targetY - mouseY) * 0.08
-
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update()
-        particles[i].draw()
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const d = Math.sqrt(dx * dx + dy * dy)
-          if (d < connDist) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(180, 120, 255, ${0.15 - d / 200})`
-            ctx.lineWidth = 0.5
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
-          }
-        }
+      for (let i = 0; i < stars.length; i++) {
+        stars[i].update(w, h)
+        stars[i].draw()
       }
 
       animFrameRef.current = requestAnimationFrame(animate)
@@ -161,13 +153,14 @@ export function CreativeHero() {
     return () => {
       window.removeEventListener("resize", onResize)
       window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mouseleave", handleMouseLeave)
       cancelAnimationFrame(animFrameRef.current)
     }
   }, [])
 
   return (
     <motion.div
-      className="w-full h-[250px] sm:h-[350px] md:h-[500px] relative pointer-events-none md:pointer-events-auto"
+      className={isGlobalBackground ? "w-full h-full" : "w-full h-[500px] relative pointer-events-none md:pointer-events-auto"}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
